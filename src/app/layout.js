@@ -1,6 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { AlertProvider } from "./scripts/Alert.context";
+import { AlertContainer } from "./components/container/Alert.container";
+import { ConfirmProvider } from "./scripts/Confirm.context";
+import { ConfirmContainer } from "./components/container/Confirm.container";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,7 +27,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ConfirmProvider>
+          <AlertProvider>
+            <ConfirmContainer />
+            <AlertContainer />
+            {children}
+          </AlertProvider>
+        </ConfirmProvider>
       </body>
     </html>
   );
